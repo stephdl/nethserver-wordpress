@@ -5,7 +5,7 @@ Release: @@RELEASE@@
 License: GPL
 Source: %{name}-%{version}.tar.gz
 BuildArch: noarch
-
+URL: http://dev.nethserver.org/projects/nethforge/wiki/%{name}
 BuildRequires: nethserver-devtools
 
 AutoReq: no
@@ -23,13 +23,16 @@ NethServer configuration for wordpress
 %preun
 
 %build
+%{__mkdir_p} root/usr/share/wordpress/tmp
 perl createlinks
 
 %install
 rm -rf $RPM_BUILD_ROOT
 (cd root   ; find . -depth -print | cpio -dump $RPM_BUILD_ROOT)
 
-%{genfilelist} $RPM_BUILD_ROOT > e-smith-%{version}-filelist
+%{genfilelist} \
+     --dir /usr/share/wordpress/tmp 'attr(0750,apache,apache)' \
+   $RPM_BUILD_ROOT > e-smith-%{version}-filelist
 echo "%doc COPYING" >> %{name}-%{version}-filelist
 
 %clean 
@@ -40,9 +43,12 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %description
-smserver rpm to setup mysql database and web link for wordpress weblog
+Nethserver rpm to setup mysql database and web link for wordpress weblog
 
 %changelog
+* Sat Nov 01 2014 stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.0-1.ns6
+- First release to nethserver
+
 * Wed Oct 15 2014 stephane de Labrusse <stephdl@de-labrusse.fr> 1.2-3.sme
 - Thanks to Remi Collet for the help to resolve the 'bug' 
 - define('DISALLOW_FILE_MODS', false); :)
