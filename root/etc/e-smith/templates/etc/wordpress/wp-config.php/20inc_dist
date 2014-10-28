@@ -1,0 +1,84 @@
+/**#@+
+ * Authentication Unique Keys and Salts.
+ *
+ * Change these to different unique phrases!
+ * You can generate these using the @link https://api.wordpress.org/secret-key/1.1/salt/ WordPress.org secret-key service
+ * You can change these at any point in time to invalidate all existing cookies. This will force all users to have to log in again.
+ *
+ * @since 2.6.0
+ */
+{
+my $pw=$wordpress{'Salt'} || "put your unique phrase here";
+	if ( $pw eq "enabled" )
+		{
+                if ( open( RANDOM, "/dev/urandom" ) )
+                {
+                        my $buf;
+                        # 57 bytes is a full line of Base64 coding, and contains
+                        # 456 bits of randomness - given a perfectly random /dev/random
+                        if ( read( RANDOM, $buf, 57 ) != 57 )
+                        {
+                            warn("Short read from /dev/random: $!");
+                        }
+                        else
+                        {
+                            use MIME::Base64 qw(encode_base64);
+                            $pw = encode_base64($buf);
+                            chomp $pw;
+                        }
+                        close RANDOM;
+                }
+                else
+                {
+		$pw= 'put your unique phrase here';
+		}
+		}
+
+$OUT .= "define('AUTH_KEY',         '$pw');
+define('SECURE_AUTH_KEY',  '$pw');
+define('LOGGED_IN_KEY',    '$pw');
+define('NONCE_KEY',        '$pw');
+define('AUTH_SALT',        '$pw');
+define('SECURE_AUTH_SALT', '$pw');
+define('LOGGED_IN_SALT',   '$pw');
+define('NONCE_SALT',       '$pw');";
+}
+/**#@-*/
+
+
+
+/**
+ * See http://make.wordpress.org/core/2013/10/25/the-definitive-guide-to-disabling-auto-updates-in-wordpress-3-7
+ */
+
+
+/* Disable all file change, as RPM base installation are read-only */
+define('DISALLOW_FILE_MODS', {$OUT .= ( $wordpress{WebFilesMod} eq "enabled" ) ? 'false' : 'true' ;});
+
+/* Disable automatic updater, in case you want to allow
+   above FILE_MODS for plugins, themes, ... */
+define('AUTOMATIC_UPDATER_DISABLED', true);
+
+/* Core update is always disabled, WP_AUTO_UPDATE_CORE value is ignore */
+
+
+/**
+ * For developers: WordPress debugging mode.
+ *
+ * Change this to true to enable the display of notices during development.
+ * It is strongly recommended that plugin and theme developers use WP_DEBUG
+ * in their development environments.
+ */
+{
+my $debug = $wordpress{'debug'} || "false";
+$OUT .= "define('WP_DEBUG', $debug);\n";
+}
+
+/* That's all, stop editing! Happy blogging. */
+
+/** Absolute path to the WordPress directory. */
+define('ABSPATH', '/usr/share/wordpress/');
+
+/** Sets up WordPress vars and included files. */
+require_once(ABSPATH . 'wp-settings.php');
+

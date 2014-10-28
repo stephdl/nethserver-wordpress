@@ -1,0 +1,43 @@
+{
+     my $status = $wordpress{'status'} || "disabled";
+     return "    # wordpress is disabled in this VirtualHost"
+            unless $status eq 'enabled';
+
+   $OUT = "";
+   use NethServer::Password;
+   my $password = NethServer::Password::store('wordpress') || die('Could not generate wordpress password!');
+
+    my $name = $wordpress{'Name'} || 'Wordpress weblog';
+    my $allow = ( $wordpress{access} eq "public" ) ? "all" : $localAccess ;
+      
+      $OUT .= "#------------------------------------------------------------\n";
+      $OUT .= "# wordpress  weblog\n";
+      $OUT .= "#------------------------------------------------------------\n";
+      $OUT .= "\n";
+      $OUT .= "RewriteEngine On\n";
+      $OUT .= "\n";
+
+      {
+        if (exists $wordpress{'URL'})
+        { $OUT .= "Alias  /$wordpress{'URL'}  /usr/share/wordpress\n"; 
+          $OUT .= "RewriteRule ^/$wordpress{'URL'}(/.*)?\$ https://%{HTTP_HOST}/$wordpress{'URL'}\$1 [R=301,L]\n";
+        }
+      }
+      
+      $OUT .= "Alias  /wordpress  /usr/share/wordpress\n";
+      $OUT .= "RewriteRule ^/wordpress(/.*)?\$ https://%{HTTP_HOST}/wordpress\$1 [R=301,L]\n";
+      $OUT .= "\n";
+      $OUT .= "<Directory /usr/share/wordpress>\n";
+      $OUT .= "    AddType application/x-httpd-php .php\n";
+      $OUT .= "    php_admin_value open_basedir /usr/share/wordpress:/etc/wordpress:/tmp/:/usr/share/pear:/usr/share/php/\n";
+      $OUT .= "    Options None\n";
+      $OUT .= "    order deny,allow\n";
+      $OUT .= "    deny from all\n";
+      $OUT .= "    allow from $allow\n";
+      $OUT .= "    php_value mysql.default_host wordpress\n";
+      $OUT .= "    php_value mysql.default_user wordpress\n";
+      $OUT .= "    php_value mysql.default_password $password\n";
+      $OUT .= "    php_admin_value upload_tmp_dir /tmp\n";
+      $OUT .= "</Directory>\n";
+    
+}
