@@ -1,7 +1,7 @@
 Summary: NethServer configuration for Wordpress
 Name: nethserver-wordpress
-Version: @@VERSION@@
-Release: @@RELEASE@@
+Version: 1.0.0
+Release: 2%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
 BuildArch: noarch
