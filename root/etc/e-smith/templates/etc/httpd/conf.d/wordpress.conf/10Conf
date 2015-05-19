@@ -27,7 +27,7 @@
       $OUT .= "<Directory /usr/share/wordpress>\n";
       $OUT .= "    AddType application/x-httpd-php .php\n";
       $OUT .= "    php_admin_value open_basedir /usr/share/wordpress:/etc/wordpress:/usr/share/pear:/usr/share/php/\n";
-      $OUT .= "    Options None\n";
+      $OUT .= "    AllowOverride Options\n";
       $OUT .= "    order deny,allow\n";
       $OUT .= "    deny from all\n";
       $OUT .= "    allow from $allow\n";
