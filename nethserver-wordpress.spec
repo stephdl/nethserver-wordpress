@@ -1,7 +1,7 @@
 Summary: NethServer configuration for Wordpress
 Name: nethserver-wordpress
-Version: 1.0.0
-Release: 3%{?dist}
+Version: 1.0.1
+Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
 BuildArch: noarch
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 Nethserver rpm to setup mysql database and web link for wordpress weblog
 
 %changelog
+* Mon Jun 22 2015 Giacomo Sanchietti <giacomo.sanchietti@nethesis.it> - 1.0.1-1
+- Upgrade to wordpress-4.2.2 [NethForge #3177]
+
 * Tue May 19 2015 stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.0-3.ns6
 - Add 'allowoverride All'
 
