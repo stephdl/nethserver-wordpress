@@ -10,17 +10,36 @@
     my $uploadmaxsize = ($wordpress{'UploadMaxSize'} || '8M');
     my $memorylimit = ($wordpress{'MemoryLimit'} || '128M');
     my $maxexecutiontime = ($wordpress{'MaxExecutionTime'} || '60');
+    my $domain = $wordpress{'DocumentRoot'} || '';
 
       $OUT .= "#------------------------------------------------------------\n";
       $OUT .= "# wordpress  weblog\n";
       $OUT .= "#------------------------------------------------------------\n";
       $OUT .= "\n";
 
+if ( $domain eq '' ) {
         if (exists $wordpress{'URL'})
         { $OUT .= "Alias  /$wordpress{'URL'}  /usr/share/wordpress\n"; }
-
       
       $OUT .= "Alias  /wordpress  /usr/share/wordpress\n";
+}
+
+elsif ($domain) {
+    $OUT .=<<"EOF";
+
+<VirtualHost *:80>
+    ServerName $domain
+    DocumentRoot  /usr/share/wordpress/
+    Redirect permanent / https://$domain/
+</VirtualHost>
+
+<VirtualHost *:443>
+    ServerName $domain
+    SSLEngine on
+    DocumentRoot  /usr/share/wordpress/
+EOF
+}
+
       $OUT .= "\n";
       $OUT .= "<Directory /usr/share/wordpress>\n";
       $OUT .= "    AddType application/x-httpd-php .php\n";
@@ -34,11 +53,16 @@
       $OUT .= "    php_admin_value upload_tmp_dir /usr/share/wordpress/tmp\n";
       $OUT .= "</Directory>\n";
     
-}
 
+$OUT .=<<"EOF";
 <Directory /usr/share/wordpress/wp-content/plugins/akismet>
   <FilesMatch "\.(php|txt)$">
     Order Deny,Allow
     Deny from all
   </FilesMatch>
 </Directory>
+
+EOF
+$OUT .= "</VirtualHost>" if ($domain);
+
+}
