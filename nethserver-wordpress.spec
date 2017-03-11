@@ -40,7 +40,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f e-smith-%{version}-filelist
 %defattr(-,root,root)
-
+%dir %{_nseventsdir}/%{name}-update
 
 %description
 Nethserver rpm to setup mysql database and web link for wordpress weblog
