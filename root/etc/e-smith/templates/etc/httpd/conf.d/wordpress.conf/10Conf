@@ -11,6 +11,8 @@
     my $memorylimit = ($wordpress{'MemoryLimit'} || '128M');
     my $maxexecutiontime = ($wordpress{'MaxExecutionTime'} || '60');
     my $domain = $wordpress{'DocumentRoot'} || '';
+    my $cert = $pki{'CrtFile'} || '/etc/pki/tls/certs/NSRV.crt';
+    my $key = $pki{'KeyFile'} || '/etc/pki/tls/private/NSRV.key';
 
       $OUT .= "#------------------------------------------------------------\n";
       $OUT .= "# wordpress  weblog\n";
@@ -37,6 +39,8 @@ elsif ($domain) {
     ServerName $domain
     SSLEngine on
     DocumentRoot  /usr/share/wordpress/
+    SSLCertificateFile "$cert"
+    SSLCertificateKeyFile "$key"
 EOF
 }
 
