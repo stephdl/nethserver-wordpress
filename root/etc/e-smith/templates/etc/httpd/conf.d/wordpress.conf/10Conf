@@ -22,8 +22,9 @@
 if ( $domain eq '' ) {
         if (exists $wordpress{'URL'})
         { $OUT .= "Alias  /$wordpress{'URL'}  /usr/share/wordpress\n"; }
-      
-      $OUT .= "Alias  /wordpress  /usr/share/wordpress\n";
+        else { 
+            $OUT .= "Alias  /wordpress  /usr/share/wordpress\n";
+        }
 }
 
 elsif ($domain) {
