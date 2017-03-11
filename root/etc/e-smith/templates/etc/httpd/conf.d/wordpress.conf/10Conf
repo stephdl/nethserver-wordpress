@@ -4,10 +4,8 @@
             unless $status eq 'enabled';
 
    $OUT = "";
-    use NethServer::Password;
-    my $password = NethServer::Password::store('wordpress') || die('Could not generate wordpress password!');
 
-    my $allow = ( $wordpress{access} eq "public" ) ? "all" : $localAccess ;
+    my $allow = ( $wordpress{access} eq "public" ) ? "all granted" : "ip $localAccess" ;
     my $postmaxsize = ($wordpress{'PostMaxSize'} || '32M');
     my $uploadmaxsize = ($wordpress{'UploadMaxSize'} || '8M');
     my $memorylimit = ($wordpress{'MemoryLimit'} || '128M');
@@ -28,9 +26,7 @@
       $OUT .= "    AddType application/x-httpd-php .php\n";
       $OUT .= "    php_admin_value open_basedir /usr/share/wordpress:/etc/wordpress:/usr/share/pear:/usr/share/php/\n";
       $OUT .= "    AllowOverride All\n";
-      $OUT .= "    order deny,allow\n";
-      $OUT .= "    deny from all\n";
-      $OUT .= "    allow from $allow\n";
+      $OUT .= "    Require $allow\n";
       $OUT .= "    php_admin_value post_max_size $postmaxsize\n";
       $OUT .= "    php_admin_value upload_max_filesize $uploadmaxsize\n";
       $OUT .= "    php_admin_value memory_limit $memorylimit\n";
