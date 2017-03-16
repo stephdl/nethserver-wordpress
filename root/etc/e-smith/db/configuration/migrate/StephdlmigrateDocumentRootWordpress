@@ -1,0 +1,13 @@
+{
+
+    use esmith::ConfigDB;
+
+    my $db = esmith::ConfigDB->open() || return '';
+    my $key = 'wordpress';
+    my $documentroot = $db->get_prop("$key",'DocumentRoot') ||'';
+
+    if ($documentroot) {
+        $db->set_prop("$key", 'DomainName', "$documentroot");
+        $db->get("$key")->delete_prop("DocumentRoot");
+    }
+}

@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Wordpress
 Name: nethserver-wordpress
-Version: 1.0.1
+Version: 1.0.2
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -46,7 +46,10 @@ rm -rf $RPM_BUILD_ROOT
 Nethserver rpm to setup mysql database and web link for wordpress weblog
 
 %changelog
-* Sat Mar 11 2017 stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.1-3.ns7
+* Thu Mar 16 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.2-1.ns6
+- Changed DocumentRoot to DomainName property
+
+* Sat Mar 11 2017 stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.1-3.ns6
 - Added the DocumentRoot Option
 
 * Tue May 19 2015 stephane de Labrusse <stephdl@de-labrusse.fr> 1.0.0-3.ns6
