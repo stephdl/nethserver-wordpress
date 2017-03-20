@@ -9,7 +9,7 @@
     my $uploadmaxsize = ($wordpress{'UploadMaxSize'} || '8M');
     my $memorylimit = ($wordpress{'MemoryLimit'} || '128M');
     my $maxexecutiontime = ($wordpress{'MaxExecutionTime'} || '60');
-    my $domain = $wordpress{'DocumentRoot'} || '';
+    my $domain = $wordpress{'DomainName'} || '';
     my $cert = $pki{'CrtFile'} || '/etc/pki/tls/certs/NSRV.crt';
     my $key = $pki{'KeyFile'} || '/etc/pki/tls/private/NSRV.key';
 
