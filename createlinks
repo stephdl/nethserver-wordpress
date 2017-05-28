@@ -35,6 +35,7 @@ event_actions($event,
 );
 templates2events("/etc/httpd/conf.d/wordpress.conf",  $event);
 templates2events("/etc/wordpress/wp-config.php",  $event);
+templates2events("/etc/httpd/conf/httpd.conf", $event);
 event_services($event, 'httpd' => 'reload');
 
 my $event = 'trusted-networks-modify';
