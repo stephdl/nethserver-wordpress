@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Wordpress
 Name: nethserver-wordpress
-Version: 1.1.3
+Version: 1.1.4
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -46,6 +46,10 @@ rm -rf $RPM_BUILD_ROOT
 Nethserver rpm to setup mysql database and web link for wordpress weblog
 
 %changelog
+* Sun May 28 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.4-1.ns7
+- Fixed wrong property in default-virtualhost.inc
+- template expansion of default-virtualhost.inc
+
 * Wed Mar 29 2017 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.3-1.ns7
 - Template expansion on trusted-network
 

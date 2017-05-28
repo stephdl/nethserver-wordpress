@@ -1,10 +1,10 @@
 #
-# 50dokuwiki
+# 50wordpress
 #
 {
 $OUT .= "   RewriteEngine On\n";
 $OUT .= "   RewriteRule ^/wordpress(/.*)?\$     https://%{HTTP_HOST}/wordpress\$1 [R=301,L]\n";
-if (exists $dokuwiki{'URL'})
+if (exists $wordpress{'URL'})
     {
     $OUT .= "     RewriteRule ^/$wordpress{'URL'}(/.*)?\$   https://%{HTTP_HOST}/$wordpress{'URL'}\$1 [R=301,L]\n";
     }
