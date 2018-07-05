@@ -34,6 +34,7 @@ event_actions($event,
              'nethserver-wordpress_permissions-conf' => '30'
 );
 templates2events("/etc/httpd/conf.d/wordpress.conf",  $event);
+templates2events("/etc/httpd/conf.d/zzz_wordpress.conf",  $event);
 templates2events("/etc/wordpress/wp-config.php",  $event);
 templates2events("/etc/httpd/conf.d/default-virtualhost.inc", $event);
 event_services($event, 'httpd' => 'reload');
