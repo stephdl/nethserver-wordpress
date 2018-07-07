@@ -32,6 +32,7 @@ elsif ($domain) {
 
 <VirtualHost *:80>
     ServerName $domain
+    RedirectMatch 301 ^(?!/\.well-known/acme-challenge/).* https://$domain
     DocumentRoot  /usr/share/wordpress/
     Redirect permanent / https://$domain/
 </VirtualHost>
