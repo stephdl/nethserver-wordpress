@@ -6,10 +6,6 @@
    $OUT = "";
 
     my $allow = ( $wordpress{access} eq "public" ) ? "all granted" : "ip $localAccess" ;
-    my $postmaxsize = ($wordpress{'PostMaxSize'} || '32M');
-    my $uploadmaxsize = ($wordpress{'UploadMaxSize'} || '8M');
-    my $memorylimit = ($wordpress{'MemoryLimit'} || '128M');
-    my $maxexecutiontime = ($wordpress{'MaxExecutionTime'} || '60');
     my $domain = $wordpress{'DomainName'} || '';
     my $cert = $pki{'CrtFile'} || '/etc/pki/tls/certs/localhost.crt';
     my $key = $pki{'KeyFile'} || '/etc/pki/tls/private/localhost.key';
@@ -49,14 +45,11 @@ EOF
       $OUT .= "\n";
       $OUT .= "<Directory /usr/share/wordpress>\n";
       $OUT .= "    AddType application/x-httpd-php .php\n";
-      $OUT .= "    php_admin_value open_basedir /usr/share/wordpress:/etc/wordpress:/usr/share/pear:/usr/share/php/\n";
+      $OUT .= '    <FilesMatch \.php$>'."\n";
+      $OUT .= '         SetHandler "proxy:fcgi://127.0.0.1:7272"'."\n";
+      $OUT .= "    </FilesMatch>\n";
       $OUT .= "    AllowOverride All\n";
       $OUT .= "    Require $allow\n";
-      $OUT .= "    php_admin_value post_max_size $postmaxsize\n";
-      $OUT .= "    php_admin_value upload_max_filesize $uploadmaxsize\n";
-      $OUT .= "    php_admin_value memory_limit $memorylimit\n";
-      $OUT .= "    php_admin_value max_execution_time $maxexecutiontime\n";
-      $OUT .= "    php_admin_value upload_tmp_dir /usr/share/wordpress/tmp\n";
       $OUT .= "</Directory>\n";
     
 
