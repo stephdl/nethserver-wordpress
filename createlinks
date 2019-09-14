@@ -37,7 +37,9 @@ templates2events("/etc/httpd/conf.d/wordpress.conf",  $event);
 templates2events("/etc/httpd/conf.d/zzz_wordpress.conf",  $event);
 templates2events("/etc/wordpress/wp-config.php",  $event);
 templates2events("/etc/httpd/conf.d/default-virtualhost.inc", $event);
+templates2events("/etc/opt/rh/rh-php72/php-fpm.d/z_wordpress.conf", $event);
 event_services($event, 'httpd' => 'reload');
+event_services($event, 'rh-php72-php-fpm' => 'restart');
 
 my $event = 'trusted-networks-modify';
 templates2events("/etc/httpd/conf.d/wordpress.conf",  $event);
