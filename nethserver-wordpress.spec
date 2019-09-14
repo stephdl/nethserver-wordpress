@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Wordpress
 Name: nethserver-wordpress
-Version: 1.1.7
+Version: 1.1.8
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -11,7 +11,10 @@ BuildRequires: nethserver-devtools
 AutoReq: no
 Requires: nethserver-httpd, nethserver-mysql
 Requires: wordpress
-
+Requires: nethserver-rh-php72-php-fpm, rh-php72-php-pdo
+Requires: rh-php72-php-gd, sclo-php72-php-imap, rh-php72-php-mbstring
+Requires: rh-php72-php-mysqlnd, rh-php72-php-pdo, nethserver-rh-php72-php-fpm
+Requires: rh-php72-php-opcache, rh-php72-php-pecl-apcu
 %description
 NethServer configuration for wordpress
 
@@ -46,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT
 Nethserver rpm to setup mysql database and web link for wordpress weblog
 
 %changelog
+* Sat Sep 14 2019 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.8-1.ns7
+- Use rh-php72 instead of default php54
+
 * Sat Jul 07 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.7-1.ns7
 - Redirect acme-challenge to https
 
