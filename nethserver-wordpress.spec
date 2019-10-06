@@ -1,5 +1,5 @@
 Summary: NethServer configuration for Wordpress
-Name: nethserver-wordpress
+Name: nethserver-wordpress-AutoUpdater
 Version: 1.1.8
 Release: 1%{?dist}
 License: GPL
@@ -15,7 +15,7 @@ Requires: nethserver-rh-php72-php-fpm, rh-php72-php-pdo
 Requires: rh-php72-php-gd, sclo-php72-php-imap, rh-php72-php-mbstring
 Requires: rh-php72-php-mysqlnd, rh-php72-php-pdo, nethserver-rh-php72-php-fpm
 Requires: rh-php72-php-opcache, rh-php72-php-pecl-apcu
-Obsoletes: wordpress
+Obsoletes: wordpress nethserver-wordpress
 %description
 NethServer configuration for wordpress
 
