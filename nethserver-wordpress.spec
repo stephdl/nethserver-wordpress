@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Wordpress
 Name: nethserver-wordpress
-Version: 1.1.7
+Version: 1.1.8
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -11,7 +11,7 @@ BuildRequires: nethserver-devtools
 AutoReq: no
 Requires: nethserver-httpd, nethserver-mysql
 Requires: wordpress
-
+Conflicts: nethserver-wordpress-AutoUpdater wordpress-AutoUpdater
 %description
 NethServer configuration for wordpress
 
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 Nethserver rpm to setup mysql database and web link for wordpress weblog
 
 %changelog
+* Sun Oct 27 2019 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.8-1.ns7
+- Conflicts nethserver-wordpress-AutoUpdater wordpress-AutoUpdater
+
 * Sat Jul 07 2018 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.7-1.ns7
 - Redirect acme-challenge to https
 
