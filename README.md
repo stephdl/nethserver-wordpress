@@ -1,4 +1,4 @@
-Nethserver-wordpress is a rpm integration to install wordpress with rh-php72 (php software collection), wordpress will use the internal web updater and no longer depend about epel updates
+Nethserver-wordpress is a rpm integration to install wordpress with rh-php73 (php software collection), wordpress will use the internal web updater and no longer depend about epel updates
 
 Once installed You have to point your browser to the url http://url/wordpress and set all informations needed.
 
