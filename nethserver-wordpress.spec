@@ -1,6 +1,6 @@
 Summary: NethServer configuration for Wordpress
 Name: nethserver-wordpress-AutoUpdater
-Version: 1.1.9
+Version: 1.1.10
 Release: 1%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
 Nethserver rpm to setup mysql database and web link for wordpress weblog
 
 %changelog
+* Tue Jun 23 2020 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.10-1.ns7
+- Move to rh-php73-php-fpm
+
 * Sun Oct 27 2019 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.9-1.ns7
 - Conflict wordpress nethserver-wordpress
 - Fix the issue of orphan template in rh-php73-php-fpm configuration
