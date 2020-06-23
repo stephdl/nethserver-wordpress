@@ -46,7 +46,7 @@ EOF
       $OUT .= "<Directory /usr/share/wordpress>\n";
       $OUT .= "    AddType application/x-httpd-php .php\n";
       $OUT .= '    <FilesMatch \.php$>'."\n";
-      $OUT .= '         SetHandler "proxy:fcgi://127.0.0.1:7272"'."\n";
+      $OUT .= '         SetHandler "proxy:fcgi://127.0.0.1:7373"'."\n";
       $OUT .= "    </FilesMatch>\n";
       $OUT .= "    AllowOverride All\n";
       $OUT .= "    Require $allow\n";

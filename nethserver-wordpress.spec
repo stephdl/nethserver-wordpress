@@ -11,10 +11,10 @@ BuildRequires: nethserver-devtools
 AutoReq: no
 Requires: nethserver-httpd, nethserver-mysql
 Requires: wordpress-AutoUpdater
-Requires: nethserver-rh-php72-php-fpm, rh-php72-php-pdo
-Requires: rh-php72-php-gd, sclo-php72-php-imap, rh-php72-php-mbstring
-Requires: rh-php72-php-mysqlnd, rh-php72-php-pdo, nethserver-rh-php72-php-fpm
-Requires: rh-php72-php-opcache, rh-php72-php-pecl-apcu
+Requires: nethserver-rh-php73-php-fpm, rh-php73-php-pdo
+Requires: rh-php73-php-gd, sclo-php73-php-imap, rh-php73-php-mbstring
+Requires: rh-php73-php-mysqlnd, rh-php73-php-pdo, nethserver-rh-php73-php-fpm
+Requires: rh-php73-php-opcache, rh-php73-php-pecl-apcu
 Conflicts: wordpress nethserver-wordpress
 %description
 NethServer configuration for wordpress
@@ -27,9 +27,9 @@ NethServer configuration for wordpress
 %preun
 
 %postun
-# Fix the issue of orphan template in rh-php72-php-fpm configuration
-/usr/bin/rm -rf  /etc/opt/rh/rh-php72/php-fpm.d/z_wordpress.conf
-/usr/bin/systemctl restart  rh-php72-php-fpm.service
+# Fix the issue of orphan template in rh-php73-php-fpm configuration
+/usr/bin/rm -rf  /etc/opt/rh/rh-php73/php-fpm.d/z_wordpress.conf
+/usr/bin/systemctl restart  rh-php73-php-fpm.service
 
 %build
 %{__mkdir_p} root/usr/share/wordpress/tmp
@@ -57,10 +57,10 @@ Nethserver rpm to setup mysql database and web link for wordpress weblog
 %changelog
 * Sun Oct 27 2019 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.9-1.ns7
 - Conflict wordpress nethserver-wordpress
-- Fix the issue of orphan template in rh-php72-php-fpm configuration
+- Fix the issue of orphan template in rh-php73-php-fpm configuration
 
 * Sat Sep 14 2019 Stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.8-1.ns7
-- Use rh-php72 instead of default php54
+- Use rh-php73 instead of default php54
 - Use our fork wordpress-AutoUpdater
 - Obsolete wordpress 
 
