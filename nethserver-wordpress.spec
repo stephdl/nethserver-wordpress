@@ -1,7 +1,7 @@
 Summary: NethServer configuration for Wordpress
 Name: nethserver-wordpress
 Version: 1.1.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
 BuildArch: noarch
@@ -46,9 +46,11 @@ rm -rf $RPM_BUILD_ROOT
 Nethserver rpm to setup mysql database and web link for wordpress weblog
 
 %postun
-/usr/bin/rm -f /etc/httpd/conf.d/zzz_wordpress.conf
-/usr/bin/rm -f /etc/httpd/conf.d/wordpress.conf
-/usr/bin/systemctl reload httpd
+if [ $1 == 0 ] ; then
+  /usr/bin/rm -f /etc/httpd/conf.d/zzz_wordpress.conf
+  /usr/bin/rm -f /etc/httpd/conf.d/wordpress.conf
+  /usr/bin/systemctl reload httpd
+fi
 
 %changelog
 * Sun Jul 05 2020 stephane de Labrusse <stephdl@de-labrusse.fr> 1.1.9
