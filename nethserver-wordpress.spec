@@ -1,7 +1,7 @@
 Summary: NethServer configuration for Wordpress
 Name: nethserver-wordpress-AutoUpdater
 Version: 1.1.11
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL
 Source: %{name}-%{version}.tar.gz
 BuildArch: noarch
@@ -27,13 +27,15 @@ NethServer configuration for wordpress
 %preun
 
 %postun
-# Fix the issue of orphan template in rh-php73-php-fpm configuration
-/usr/bin/rm -rf  /etc/opt/rh/rh-php73/php-fpm.d/z_wordpress.conf
-/usr/bin/systemctl restart  rh-php73-php-fpm.service
-# clean httpd template
-/usr/bin/rm -f /etc/httpd/conf.d/zzz_wordpress.conf
-/usr/bin/rm -f /etc/httpd/conf.d/wordpress.conf
-/usr/bin/systemctl reload httpd
+if [ $1 == 0 ] ; then
+  # Fix the issue of orphan template in rh-php73-php-fpm configuration
+  /usr/bin/rm -rf  /etc/opt/rh/rh-php73/php-fpm.d/z_wordpress.conf
+  /usr/bin/systemctl restart  rh-php73-php-fpm.service
+  # clean httpd template
+  /usr/bin/rm -f /etc/httpd/conf.d/zzz_wordpress.conf
+  /usr/bin/rm -f /etc/httpd/conf.d/wordpress.conf
+  /usr/bin/systemctl reload httpd
+fi
 
 %build
 %{__mkdir_p} root/usr/share/wordpress/tmp
