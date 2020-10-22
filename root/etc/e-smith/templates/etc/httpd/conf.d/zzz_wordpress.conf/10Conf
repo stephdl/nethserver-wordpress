@@ -11,8 +11,9 @@
     my $memorylimit = ($wordpress{'MemoryLimit'} || '128M');
     my $maxexecutiontime = ($wordpress{'MaxExecutionTime'} || '60');
     my $domain = $wordpress{'DomainName'} || '';
-    my $cert = $pki{'CrtFile'} || '/etc/pki/tls/certs/localhost.crt';
-    my $key = $pki{'KeyFile'} || '/etc/pki/tls/private/localhost.key';
+    my $cert = $wordpress{'CrtFile'} || '';
+    my $chain = $wordpress{'ChainFile'} || '';
+    my $key = $wordpress{'KeyFile'} || '';
 
       $OUT .= "#------------------------------------------------------------\n";
       $OUT .= "# wordpress  weblog\n";
@@ -41,9 +42,10 @@ elsif ($domain) {
     ServerName $domain
     SSLEngine on
     DocumentRoot  /usr/share/wordpress/
-    SSLCertificateFile "$cert"
-    SSLCertificateKeyFile "$key"
 EOF
+    $OUT .= "    SSLCertificateFile \"$cert\"\n" if ($cert ne '');
+    $OUT .= "    SSLCertificateChainFile \"$chain\"\n" if ($chain ne '');
+    $OUT .= "    SSLCertificateKeyFile \"$key\"\n" if ($key ne '');
 }
 
       $OUT .= "\n";

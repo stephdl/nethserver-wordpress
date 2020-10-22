@@ -39,3 +39,11 @@ If you want to use another name instead of 'wordpress' (http://url/wordpress), t
 
 	config setprop wordpress URL foldername
 	signal-event nethserver-wordpress-update
+
+If you've placed Wordpress in its own virtual host, and you want to use a separate TLS certificate (_i.e.,_ not the default server certificate) for that virtual host
+
+	config setprop wordpress CrtFile /path/to/certificate
+	config setprop wordpress ChainFile /path/to/chain
+	config setprop wordpress KeyFile /path/to/key
+	signal-event nethserver-wordpress-update
+
